@@ -23,5 +23,5 @@ COPY --from=build /app/target/maven-0.0.1-SNAPSHOT.jar ./app.jar
 EXPOSE 8080
 
 # Run the jar file
-CMD ["java", "-jar", "target/my-app.jar"]
+CMD ["java", "-jar", "./app.jar"]
 
