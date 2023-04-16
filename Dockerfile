@@ -26,7 +26,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Set display environment variable
-ENV DISPLAY=:0
+ENV DISPLAY=107.20.55.27:0
 
 # Make port 8081 available to the world outside this container
 EXPOSE 8081
