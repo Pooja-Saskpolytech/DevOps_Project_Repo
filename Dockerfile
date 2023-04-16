@@ -1,24 +1,35 @@
 # Use an official Java runtime as a parent image
-FROM openjdk:11-jdk-slim
+FROM maven:3.8.4-jdk-11-slim AS build
 
 # Set the working directory to /app
 WORKDIR /app
 
-# Copy the application files
-COPY MyApp.jar /app/
-COPY myapp.conf /app/
+# Copy the pom.xml file
+COPY pom.xml .
+
+# Resolve the dependencies
+RUN mvn dependency:resolve
+
+# Build the application
+RUN mvn package
+
+# Copy the JAR file
+COPY target/maven-0.0.1-SNAPSHOT.jar ./app.jar
+
+# Set the working directory to /app
+WORKDIR /app
 
 # Install GUI dependencies
 RUN apt-get update && \
-    apt-get install -y xorg openbox && \
+    apt-get install -y x11-apps libxext6 libxrender1 libxtst6 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Set display environment variable
-ENV DISPLAY=host.docker.internal:0
+ENV DISPLAY=:0
 
-# Expose container port
+# Make port 8081 available to the world outside this container
 EXPOSE 8081
 
-# Run application
-CMD ["java", "-jar", "/app/MyApp.jar", "--config", "/app/myapp.conf"]
+# Run the jar file
+CMD ["java", "-jar", "./app.jar", "--server.port=8081"]
