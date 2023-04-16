@@ -32,4 +32,4 @@ ENV DISPLAY=107.20.55.27:0
 EXPOSE 8081
 
 # Run the jar file
-CMD ["java", "-jar", "./app.jar", "--server.port=8081"]
+CMD ["sh", "-c", "Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset & sleep 5; java -jar ./app.jar --server.port=8081"]
