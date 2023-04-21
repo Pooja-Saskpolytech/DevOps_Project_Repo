@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 public class TitleBar extends JPanel{
 
+
     /**
 	 * 
 	 */
@@ -17,7 +18,7 @@ public class TitleBar extends JPanel{
     {
         this.setPreferredSize(new Dimension(400,80));
 
-        JLabel titleText = new JLabel("DevOps Project");
+        JLabel titleText = new JLabel("Project");
         titleText.setPreferredSize(new Dimension(200,60));
         titleText.setFont(new Font("Sans-serif",Font.BOLD, 20));
         titleText.setHorizontalAlignment(JLabel.CENTER);
